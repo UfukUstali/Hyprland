@@ -1252,6 +1252,10 @@ void CInputManager::setPointerConfigs() {
                     libinput_device_config_scroll_set_natural_scroll_enabled(LIBINPUTDEV, g_pConfigManager->getDeviceInt(devname, "natural_scroll", "input:natural_scroll"));
             }
 
+            if (libinput_device_config_3fg_drag_get_finger_count(LIBINPUTDEV) >= 3) {
+                libinput_device_config_3fg_drag_set_enabled(LIBINPUTDEV, g_pConfigManager->getDeviceInt(devname, "drag_3fg", "input:touchpad:drag_3fg"))
+            }
+
             if (libinput_device_config_dwt_is_available(LIBINPUTDEV)) {
                 const auto DWT =
                     static_cast<enum libinput_config_dwt_state>(g_pConfigManager->getDeviceInt(devname, "disable_while_typing", "input:touchpad:disable_while_typing") != 0);
